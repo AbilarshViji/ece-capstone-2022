@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      dockerfile: flask-app/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_ENV: development
+  frontend:
+    build:
+      dockerfile: Frontend/Dockerfile
+    ports:
+    - "80:3000"
+
+
