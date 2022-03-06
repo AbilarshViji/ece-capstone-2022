@@ -1,11 +1,18 @@
-# FROM tensorflow/tensorflow:latest-gpu
-FROM python:3.7
+FROM python:3.7-slim-buster
 
 WORKDIR /app
-COPY flask-app .
-RUN pip3 install -r requirements.txt
 
-RUN apt-get update && apt-get install -y fluidsynth
+RUN apt-get update && apt-get install -y fluidsynth \
+                                            gcc \
+                                            build-essential \
+                                            libasound2-dev \
+                                            libjack-dev
+
+COPY flask-app/requirements.txt .
+
+RUN mkdir uploads && mkdir generation && pip install --no-cache-dir -r requirements.txt
+
+COPY flask-app .
 
 EXPOSE 5000
 
