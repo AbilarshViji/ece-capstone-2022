@@ -1,5 +1,7 @@
-FROM node:12.18.1
+FROM node:17-alpine
 ENV NODE_ENV=production
+
+WORKDIR /app
 
 COPY Frontend .
 EXPOSE 3000
