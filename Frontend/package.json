@@ -4,6 +4,7 @@
     "description": "",
     "keywords": [],
     "main": "src/index.js",
+    "homepage": ".",
     "dependencies": {
         "lodash": "4.17.11",
         "prop-types": "15.6.2",
