@@ -35,7 +35,7 @@ def generate_midi_melody(melody_sequence):
             '--bundle_file', rnn_model,
             '--output_dir', output_dir,
             '--num_outputs', '1',
-            '--num_steps', '128',
+            '--num_steps', '256',
             '--condition_on_primer','false',
             '--primer_melody', ('['+melody_sequence+']'),
             '--inject_primer_during_generation','true',
@@ -49,11 +49,11 @@ def generate_midi_pitches(pitch_sequence):
             '--bundle_file', rnn_model,
             '--output_dir', output_dir,
             '--num_outputs', '1',
-            '--num_steps', '128',
+            '--num_steps', '256',
             '--condition_on_primer','false',
-            '--primer_pitches', ('['+pitch_sequence+']')]
+            '--primer_pitches', ('['+str(pitch_sequence)[1:-1]+']')]
     subprocess.call(args)
-    return os.listdir(output_dir)[0]
+    return os.listdir(output_dir)[-1]
 
 
 def to_audio(midi_file, output_file):

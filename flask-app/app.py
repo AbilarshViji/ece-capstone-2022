@@ -1,6 +1,6 @@
-from flask import Flask, jsonify,request,send_from_directory
+from flask import Flask, jsonify,request,send_from_directory,render_template
 import os,re,subprocess
-from music_generator import generate_midi_melody,generate_noteSequence,to_audio
+from music_generator import generate_midi_melody,generate_noteSequence,to_audio,generate_midi_pitches
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -13,7 +13,7 @@ soundfont = 'models/Famicom.sf2'
 
 @app.route('/')
 def index():
-    return 'hello world'
+    return render_template('../Frontend/build/index.html')
 
 @app.route('/uploads/<filename>', methods=['GET', 'POST'])
 def uploaded_file(filename):
@@ -28,6 +28,7 @@ def generate_midi():
     noteSequence = generate_noteSequence(pitches, durations)
 
     midi_file = generate_midi_melody(noteSequence)
+    # midi_file = generate_midi_pitches(pitches)
     return midi_file
 
 # Not really an MP3, it's a WAV
@@ -43,7 +44,6 @@ def generate_mp3():
     print("==============mp3_dir from format", mp3_dir)
 
     to_audio(midi_dir,mp3_dir)
-
     return mp3_dir
 
 def generate_nes_music(call_sid, output_file):
@@ -51,4 +51,4 @@ def generate_nes_music(call_sid, output_file):
     to_audio(midi_file_path, output_file)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(host='0.0.0.0')
