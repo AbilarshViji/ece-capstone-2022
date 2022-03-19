@@ -12,6 +12,7 @@ import { array } from "prop-types";
 // webkitAudioContext fallback needed to support Safari
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 const soundfontHostname = "https://d1pzp51pvbm36p.cloudfront.net";
+const backendIP = "http://localhost:5000/";
 
 var noteRange = {
   first: MidiNumbers.fromNote("c3"),
@@ -141,7 +142,7 @@ class ResponsivePiano extends React.Component {
       duration: durations,
     };
 
-    let res = await fetch("http://localhost:5000/generate_midi", {
+    let res = await fetch(backendIP+"generate_midi", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -152,7 +153,7 @@ class ResponsivePiano extends React.Component {
 
     let midiFileName = await res.text();
 
-    let mp3FileNamePromise = await fetch("http://localhost:5000/get_mp3", {
+    let mp3FileNamePromise = await fetch(backendIP+"get_mp3", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -163,10 +164,16 @@ class ResponsivePiano extends React.Component {
 
     let mp3FileName = await mp3FileNamePromise.text();
 
-    //new Audio(`http://localhost:5000/${mp3FileName}`).play();
     let player = document.getElementById("audio-player");
     player.style.display="block";
-    player.src = `http://localhost:5000/${mp3FileName}`;
+    player.src = backendIP+`${mp3FileName}`;
+  
+    this.setRecording({
+      events: [],
+      mode: "RECORDING",
+      currentEvents: [],
+      currentTime: 0,
+    });
   };
 
   render() {
@@ -174,12 +181,6 @@ class ResponsivePiano extends React.Component {
       <DimensionsProvider>
         {({ containerWidth, containerHeight }) => (
           <div>
-            <center>
-              <audio style={{marginBottom:'50px', display:'none'}} id="audio-player" controls src="">
-                Your browser does not support the
-                <code>audio</code> element.
-              </audio>
-            </center>
             <div className="mt-5">
               <SoundfontProvider
                 instrumentName="acoustic_grand_piano"
@@ -200,16 +201,22 @@ class ResponsivePiano extends React.Component {
               />
             </div>
             <div className="mt-5">
-              <button onClick={this.onClickPlay}>Play</button>
+              {/* <button onClick={this.onClickPlay}>Play</button>
               <button onClick={this.onClickStop}>Stop</button>
               <button onClick={this.onClickClear}>Clear</button>
-              <button onClick={this.onClickChange}>Change</button>
+              <button onClick={this.onClickChange}>Change</button> */}
               <button onClick={this.onClickML}>Generate</button>
             </div>
-            <div className="mt-5">
+            <center>
+              <audio style={{marginBottom:'50px', display:'none'}} id="audio-player" controls src="">
+                Your browser does not support the
+                <code>audio</code> element.
+              </audio>
+            </center>
+            {/* <div className="mt-5">
               <strong>Recorded notes</strong>
               <div>{JSON.stringify(this.state.recording.events)}</div>
-            </div>
+            </div> */}
           </div>
         )}
       </DimensionsProvider>
