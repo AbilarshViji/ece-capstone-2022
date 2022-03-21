@@ -7,6 +7,7 @@ import "react-piano/dist/styles.css";
 import DimensionsProvider from "./DimensionsProvider";
 import SoundfontProvider from "./SoundfontProvider";
 import PianoWithRecording from "./PianoWithRecording";
+import "./style.css";
 import { array } from "prop-types";
 
 // webkitAudioContext fallback needed to support Safari
@@ -30,7 +31,7 @@ function App() {
     <div>
       <div class="logo">
         <center>
-          <img src="https://i.ibb.co/g4ZSwq8/Screen-Shot-2022-03-05-at-7-54-28-PM.jpg"></img>
+          <img src="https://i.ibb.co/pnNq9cX/Untitled-1.jpg"></img>
         </center>
       </div>
 
@@ -200,7 +201,7 @@ class ResponsivePiano extends React.Component {
                 )}
               />
             </div>
-            <div className="mt-5">
+            <div className="buttonBody">
               {/* <button onClick={this.onClickPlay}>Play</button>
               <button onClick={this.onClickStop}>Stop</button>
               <button onClick={this.onClickClear}>Clear</button>
