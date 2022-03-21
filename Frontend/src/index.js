@@ -192,7 +192,7 @@ class ResponsivePiano extends React.Component {
                     recording={this.state.recording}
                     setRecording={this.setRecording}
                     noteRange={noteRange}
-                    width={containerWidth*0.8}
+                    width={containerWidth*0.75}
                     playNote={playNote}
                     stopNote={stopNote}
                     disabled={isLoading}
