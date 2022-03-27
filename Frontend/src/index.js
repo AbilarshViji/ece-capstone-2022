@@ -35,7 +35,7 @@ function App() {
         </center>
       </div>
 
-      <div style={{ padding: 70 }}>
+      <div>
         <ResponsivePiano />
       </div>
     </div>
@@ -209,7 +209,7 @@ class ResponsivePiano extends React.Component {
               <button onClick={this.onClickML}>Generate</button>
             </div>
             <center>
-              <audio style={{marginBottom:'50px', display:'none'}} id="audio-player" controls src="">
+              <audio id="audio-player" controls src="">
                 Your browser does not support the
                 <code>audio</code> element.
               </audio>
