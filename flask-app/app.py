@@ -51,4 +51,5 @@ def generate_nes_music(call_sid, output_file):
     to_audio(midi_file_path, output_file)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=5000)
