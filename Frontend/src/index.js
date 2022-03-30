@@ -29,7 +29,7 @@ var keyboardShortcuts = KeyboardShortcuts.create({
 function App() {
   return (
     <div>
-      <div class="logo">
+      <div className={"logo"}>
         <center>
           <img src="https://i.ibb.co/pnNq9cX/Untitled-1.jpg"></img>
         </center>
@@ -43,6 +43,7 @@ function App() {
 }
 
 class ResponsivePiano extends React.Component {
+
   state = {
     recording: {
       mode: "RECORDING",
@@ -54,7 +55,6 @@ class ResponsivePiano extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.scheduledEvents = [];
   }
 
@@ -135,6 +135,12 @@ class ResponsivePiano extends React.Component {
   };
 
   onClickML = async () => {
+    let loader = document.querySelector("#loader");
+    let button =document.querySelector(".buttonBody")
+    let player = document.getElementById("audio-player");
+    loader.style.display="block";
+    button.style.display="none";
+    player.style.display="none";
     let durations = this.state.recording.events.map((a) => a.duration);
     let pitches = this.state.recording.events.map((a) => a.midiNumber);
 
@@ -165,9 +171,11 @@ class ResponsivePiano extends React.Component {
 
     let mp3FileName = await mp3FileNamePromise.text();
 
-    let player = document.getElementById("audio-player");
     player.style.display="block";
     player.src = backendIP+`${mp3FileName}`;
+    loader.style.display="none";
+    button.style.display="block";
+
   
     this.setRecording({
       events: [],
@@ -182,7 +190,7 @@ class ResponsivePiano extends React.Component {
       <DimensionsProvider>
         {({ containerWidth, containerHeight }) => (
           <div>
-            <div className="mt-5">
+            <div className="piano">
               <SoundfontProvider
                 instrumentName="acoustic_grand_piano"
                 audioContext={audioContext}
@@ -206,8 +214,9 @@ class ResponsivePiano extends React.Component {
               <button onClick={this.onClickStop}>Stop</button>
               <button onClick={this.onClickClear}>Clear</button>
               <button onClick={this.onClickChange}>Change</button> */}
-              <button onClick={this.onClickML}>Generate</button>
+              <button onClick={this.onClickML} disabled={this.state.recording.events.length == 0}>Generate</button>
             </div>
+            <div id="loader"></div>
             <center>
               <audio id="audio-player" controls src="">
                 Your browser does not support the
