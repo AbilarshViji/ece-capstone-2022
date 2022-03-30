@@ -3,6 +3,10 @@ import os,re,subprocess
 from music_generator import generate_midi_melody,generate_noteSequence,to_audio,generate_midi_pitches
 from flask_cors import CORS
 
+import logging
+logger = logging.getLogger('waitress')
+logger.setLevel(logging.INFO)
+
 app = Flask(__name__)
 CORS(app)
 

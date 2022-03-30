@@ -13,7 +13,7 @@ import { array } from "prop-types";
 // webkitAudioContext fallback needed to support Safari
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 const soundfontHostname = "https://d1pzp51pvbm36p.cloudfront.net";
-const backendIP = "http://165.227.46.222:5000/";
+const backendIP = "http://159.89.126.155:5000/";
 
 var noteRange = {
   first: MidiNumbers.fromNote("c3"),

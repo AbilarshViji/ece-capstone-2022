@@ -15,7 +15,7 @@ def generate_noteSequence(pitches, durations):
 
     #TODO Error Handling to ensure the length of pitches is the same length as the duration array
     for i in range(0,len(pitches)):
-        print(i)
+        # print(i)
         pitch = pitches[i]
         duration = durations[i]
         noteSequence = noteSequence + str(pitch)
