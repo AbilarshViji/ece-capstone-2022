@@ -1,4 +1,4 @@
-import os,re,subprocess
+import os, re, subprocess, glob
 
 
 UPLOAD_FOLDER = 'uploads'
@@ -41,7 +41,8 @@ def generate_midi_melody(melody_sequence):
             '--inject_primer_during_generation','true',
             '--log', 'FATAL']
     subprocess.call(args)
-    return os.listdir(output_dir)[-1]
+    list_of_files = glob.glob(output_dir + '/*.mid')
+    return max(list_of_files, key=os.path.getctime)
 
 def generate_midi_pitches(pitch_sequence):
     output_dir = GENERATION_DIR
@@ -53,8 +54,8 @@ def generate_midi_pitches(pitch_sequence):
             '--condition_on_primer','false',
             '--primer_pitches', ('['+str(pitch_sequence)[1:-1]+']')]
     subprocess.call(args)
-    return os.listdir(output_dir)[-1]
-
+    list_of_files = glob.glob(output_dir + '/*.mid')
+    return max(list_of_files, key=os.path.getctime)
 
 def to_audio(midi_file, output_file):
     print(os.getcwd())
